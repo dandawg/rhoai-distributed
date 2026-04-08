@@ -1,0 +1,11 @@
+# Operand for the JobSet Operator (Kubeflow Trainer v2 / TrainJob). Sync manually after
+# the Subscription installs. If this fails to apply, create the instance from OperatorHub
+# (JobSet Operator → JobSetOperator → Create cluster).
+apiVersion: operator.openshift.io/v1
+kind: JobSetOperator
+metadata:
+  name: cluster
+spec:
+  logLevel: Normal
+  managementState: Managed
+  operatorLogLevel: Normal

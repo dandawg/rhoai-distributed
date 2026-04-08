@@ -1,0 +1,47 @@
+# Requires Secret minio-dspa-connection in namespace demo (see repo README).
+# MinIO root credentials live in minio/minio-secret per rhoai-deploy README.
+apiVersion: datasciencepipelinesapplications.opendatahub.io/v1
+kind: DataSciencePipelinesApplication
+metadata:
+  name: dspa
+  namespace: demo
+spec:
+  apiServer:
+    caBundleFileMountPath: ""
+    caBundleFileName: ""
+    deploy: true
+    artifactSignedURLExpirySeconds: 60
+    enableSamplePipeline: false
+    managedPipelines: {}
+    enableOauth: true
+    cacheEnabled: true
+    pipelineStore: database
+  database:
+    disableHealthCheck: false
+    mariaDB:
+      deploy: true
+      pipelineDBName: mlpipeline
+      pvcSize: 10Gi
+      username: mlpipeline
+  dspVersion: v2
+  objectStorage:
+    disableHealthCheck: false
+    enableExternalRoute: false
+    externalStorage:
+      basePath: ""
+      bucket: pipelines
+      host: minio-service.minio.svc.cluster.local
+      port: "9000"
+      region: us-east-1
+      s3CredentialsSecret:
+        accessKey: AWS_ACCESS_KEY_ID
+        secretKey: AWS_SECRET_ACCESS_KEY
+        secretName: minio-dspa-connection
+      scheme: http
+  persistenceAgent:
+    deploy: true
+    numWorkers: 2
+  podToPodTLS: true
+  scheduledWorkflow:
+    cronScheduleTimezone: UTC
+    deploy: true

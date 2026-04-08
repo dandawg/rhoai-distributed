@@ -1,0 +1,10 @@
+# Strategic merge patch: only the ray component. Requires Argo ServerSideApply and
+# ignoreDifferences on /spec/components/ray in the Application that syncs the base DSC.
+apiVersion: datasciencecluster.opendatahub.io/v2
+kind: DataScienceCluster
+metadata:
+  name: default-dsc
+spec:
+  components:
+    ray:
+      managementState: Managed

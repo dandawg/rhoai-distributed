@@ -1,0 +1,20 @@
+apiVersion: kueue.x-k8s.io/v1beta1
+kind: ClusterQueue
+metadata:
+  name: default
+spec:
+  namespaceSelector: {}
+  resourceGroups:
+    - coveredResources:
+        - cpu
+        - memory
+        - pods
+      flavors:
+        - name: default-flavor
+          resources:
+            - name: cpu
+              nominalQuota: "1000"
+            - name: memory
+              nominalQuota: 4000Gi
+            - name: pods
+              nominalQuota: "10000"
