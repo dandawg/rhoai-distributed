@@ -1,5 +1,5 @@
-# Requires Secret minio-dspa-connection in namespace demo (see repo README).
-# MinIO root credentials live in minio/minio-secret per rhoai-deploy README.
+# Object storage credentials: Secret minio-dspa-connection is synced by the ESO
+# ExternalSecret in rhoai-deploy/platform/access/minio-dspa/ (access Application).
 apiVersion: datasciencepipelinesapplications.opendatahub.io/v1
 kind: DataSciencePipelinesApplication
 metadata:

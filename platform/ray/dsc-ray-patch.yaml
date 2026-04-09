@@ -1,5 +1,5 @@
-# Strategic merge patch: only the ray component. Requires Argo ServerSideApply and
-# ignoreDifferences on /spec/components/ray in the Application that syncs the base DSC.
+# Strategic merge patch: only the ray component (Managed). Optional; rhoai-deploy
+# base DSC enables Ray by default. Use Argo ServerSideApply on the DSC Application.
 apiVersion: datasciencecluster.opendatahub.io/v2
 kind: DataScienceCluster
 metadata:
