@@ -1,6 +1,6 @@
 # rhoai-distributed
 
-GitOps-friendly manifests for **distributed** OpenShift AI workloads: JobSet (Kubeflow Trainer v2 prerequisite), default Kueue queues, optional Ray on the `DataScienceCluster`, and an optional Data Science Pipelines server backed by the MinIO deployment from [rhoai-deploy](https://github.com/redhat-ai-americas/rhoai-deploy).
+GitOps-friendly manifests for **distributed** OpenShift AI workloads: JobSet (Kubeflow Trainer v2 prerequisite), default Kueue queues, and an optional Data Science Pipelines server backed by the MinIO deployment from [rhoai-deploy](https://github.com/redhat-ai-americas/rhoai-deploy).
 
 This repo is consumed by [rhoai-demo-foundations](https://github.com/redhat-ai-americas/rhoai-demo-foundations) (app-of-apps). You can also apply individual Applications under `gitops/applications/` for testing.
 
@@ -12,7 +12,7 @@ This repo is consumed by [rhoai-demo-foundations](https://github.com/redhat-ai-a
 | `platform/jobset-operator/instance/` | `JobSetOperator` operand (sync manually after the operator CSV is ready) |
 | `platform/kueue/cluster/` | `ClusterQueue` named `default` |
 | `platform/kueue/local-demo/` | `LocalQueue` `default` in namespace `demo` (sync after `demo` exists) |
-| `platform/ray/` | DSC patch: `ray: Managed` (optional manual sync; rhoai-deploy base DSC enables Ray by default) |
+
 | `platform/pipelines/` | `DataSciencePipelinesApplication` in `demo` using MinIO bucket `pipelines` (`minio-dspa-connection` Secret managed by ESO via rhoai-deploy `access`) |
 | `gitops/applications/` | Standalone Argo CD `Application` manifests |
 
@@ -38,7 +38,7 @@ After those conditions are met, **Sync** the `pipelines-server` Application in A
 
 ## Ray and the DataScienceCluster
 
-The base DSC in rhoai-deploy enables **Ray** and **Trainer v2** (`trainer`) in Git. The `rhoai-instance` Application uses **`ignoreDifferences` on `default-dsc` `/spec`**, so live edits (including turning Ray or Trainer off) are not continuously reconciled away; **Sync** `rhoai-instance` to reset from Git. The `platform/ray` patch remains optional if you only want to merge the Ray stanza.
+The base DSC in rhoai-deploy enables **Ray** and **Trainer v2** (`trainer`) in Git. The `rhoai-instance` Application uses **`ignoreDifferences` on `default-dsc` `/spec`**, so live edits (including turning Ray or Trainer off) are not continuously reconciled away; **Sync** `rhoai-instance` to reset from Git.
 
 ## Kubeflow Trainer
 
